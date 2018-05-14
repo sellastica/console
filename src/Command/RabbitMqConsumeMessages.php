@@ -20,6 +20,8 @@ class RabbitMqConsumeMessages extends \Symfony\Component\Console\Command\Command
 	public $logger;
 	/** @var \Sellastica\Entity\EntityManager @inject */
 	public $em;
+	/** @var \Sellastica\Core\Model\Environment @inject */
+	public $environment;
 
 
 	protected function configure()
@@ -45,7 +47,8 @@ class RabbitMqConsumeMessages extends \Symfony\Component\Console\Command\Command
 				throw new \RuntimeException('RabbitMQ is disabled in the settings table');
 			}
 
-			if (!$this->hasToRun()) {
+			if (!$this->environment->isDebugMode()
+				&& !$this->hasToRun()) {
 				throw new \RuntimeException(sprintf(
 					'RabbitMQ is stopped till %s or till previous consumers end',
 					$this->getNextRunStart() ? $this->getNextRunStart()->format('Y-m-d H:i:s') : 0
