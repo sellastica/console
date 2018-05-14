@@ -74,7 +74,7 @@ class RabbitMqConsumeMessages extends \Symfony\Component\Console\Command\Command
 
 			return 0;
 		} catch (\Throwable $e) {
-			$output->writeLn('<error>' . $e->getMessage() . '</error>');
+			$output->writeLn('<error>' . get_class($e) . ': ' . $e->getMessage() . '</error>');
 			$this->logger->exception($e);
 			return 1;
 		}
