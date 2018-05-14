@@ -1,0 +1,21 @@
+{
+	"name": "sellastica/console",
+	"homepage": "https://github.com/sellastica/console",
+	"license": "proprietary",
+	"authors": [
+		{
+			"name": "Tomáš Krejčí",
+			"homepage": "http://www.sellastica.com"
+		}
+	],
+	"require": {
+		"php": ">=7.1"
+	},
+	"require-dev": {
+	},
+	"autoload": {
+		"psr-4": {
+			"Sellastica\\Console\\": "src/"
+		}
+	}
+}
