@@ -16,8 +16,13 @@ class SchedulerRun extends \Symfony\Component\Console\Command\Command
 	protected function configure()
 	{
 		$this->setName('scheduler:run')
-			->setDescription('Runs Scheduler');
-		$this->addArgument('jobId', \Symfony\Component\Console\Input\InputArgument::OPTIONAL, 'Job ID');
+			->setDescription('Runs Scheduler')
+			->setDefinition(
+				new \Symfony\Component\Console\Input\InputDefinition([
+					new \Symfony\Component\Console\Input\InputOption('jobId', null, \Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED),
+					new \Symfony\Component\Console\Input\InputOption('projectId', null, \Symfony\Component\Console\Input\InputOption::VALUE_REQUIRED),
+				])
+			);
 	}
 
 	/**
@@ -31,7 +36,7 @@ class SchedulerRun extends \Symfony\Component\Console\Command\Command
 	)
 	{
 		try {
-			if (!$jobId = $input->getArgument('jobId')) {
+			if (!$jobId = $input->getOption('jobId')) {
 				$this->scheduler->clearOldLogEntries();
 				$this->scheduler->run();
 			} else {
